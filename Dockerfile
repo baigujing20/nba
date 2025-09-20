@@ -28,7 +28,7 @@ COPY app /app
 
 RUN export DEBIAN_FRONTEND=noninteractive; \
     apt-get update; \
-    apt-get install -y nginx tzdata openssh-server curl ca-certificates wget vim net-tools supervisor unzip iputils-ping telnet git iproute2 --no-install-recommends; \
+    apt-get install -y tzdata openssh-server curl ca-certificates wget vim net-tools supervisor unzip iputils-ping telnet git iproute2 --no-install-recommends; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*; \
     chmod +x /entrypoint.sh; \
@@ -44,4 +44,4 @@ COPY --from=builder /app/supercronic /usr/local/bin/supercronic
 EXPOSE 7860
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["supervisord", "-c", "/app/supervisor/supervisord.conf","nginx", "-g", "daemon off;"]
+CMD ["supervisord", "-c", "/app/supervisor/supervisord.conf"]
