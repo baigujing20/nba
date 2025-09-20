@@ -20,15 +20,15 @@ FROM ubuntu:22.04
 LABEL org.opencontainers.image.source="https://github.com/vevc/one-node"
 
 ENV TZ=Asia/Shanghai \
-    UUID=2584b733-9095-4bec-a7d5-62b473540f7a \
-    DOMAIN=vevc-fml.hf.space
+    UUID=9ac06c1d-0006-431a-9187-8d802d64bf1f \
+    DOMAIN=guwenjiayd-nba-fml.hf.space
 
 COPY entrypoint.sh /entrypoint.sh
 COPY app /app
 
 RUN export DEBIAN_FRONTEND=noninteractive; \
     apt-get update; \
-    apt-get install -y tzdata openssh-server curl ca-certificates wget vim net-tools supervisor unzip iputils-ping telnet git iproute2 --no-install-recommends; \
+    apt-get install -y nginx tzdata openssh-server curl ca-certificates wget vim net-tools supervisor unzip iputils-ping telnet git iproute2 --no-install-recommends; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*; \
     chmod +x /entrypoint.sh; \
@@ -44,4 +44,4 @@ COPY --from=builder /app/supercronic /usr/local/bin/supercronic
 EXPOSE 7860
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["supervisord", "-c", "/app/supervisor/supervisord.conf"]
+CMD ["supervisord", "-c", "/app/supervisor/supervisord.conf","nginx", "-g", "daemon off;"]
